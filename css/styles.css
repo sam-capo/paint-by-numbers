@@ -1,0 +1,325 @@
+/* Imports */
+@import url("https://use.typekit.net/wop3zwg.css");
+
+/* Colours */
+:root {
+  --gallery-white: #FAFAFA;
+  --soft-linen: #F1EFEA;
+  --black-text: #1A1A1A;
+  --pumpkin: #de8126;
+  --bronze-olive: #574109;
+  --hot-toddy: #b07e09;
+  --mckenna: #cfa85e;
+  --brown: #642d10;
+  --brown-ochre: #8b4324;
+  --green: #90be6d;
+}
+
+/* Defaults ------------------------------ */
+/* Set the base typeface and remove the browser's default body margin. */
+html {
+  font-family: "stolzl", sans-serif;
+  font-size: 1rem;
+}
+
+body {
+  margin: 0;
+}
+
+/* Header --------------------------------- */
+/* Arrange the page title and audio controls across the header. */
+header {
+  background-color: var(--soft-linen);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+header div {
+  display: flex;
+  align-items: center;
+}
+
+header h1, h2 {
+  margin: 0;
+}
+
+header h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding-left: 10px;
+}
+
+header p {
+  padding: 0 15px;
+  transform: scale(1.4);
+}
+
+/* Layout and appearance for the background-audio toggle. */
+.audio-controls {
+  display: flex;
+}
+
+/* I used the W3School's code to create this slider
+source: https://www.w3schools.com/howto/howto_css_switch.asp */
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--green);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--green);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Main --------------------------- */
+/* Center the canvas and palette in the main content area. */
+main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Size and position the SVG painting surface and its clickable regions. */
+.canvas {
+  position: relative;
+  width: 650px;
+  height: 535px;
+  margin: 20px 20px 0 20px;
+}
+
+#pumpkin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 99;
+  width: 500px;
+  height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.canvas img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#pumpkin path {
+  cursor: pointer;
+}
+
+
+#pumpkin .non-interactive {
+  stroke-width: 4px;
+}
+
+#pumpkin .non-interactive {
+  pointer-events: none;
+  cursor: default;
+}
+
+#pumpkin .non-interactive + .region-number,
+#pumpkin.numbers-hidden .region-number,
+#pumpkin .region-number.is-hidden {
+  display: none;
+}
+
+/* Keep labels centered, readable, and transparent to pointer interaction. */
+.region-number {
+  fill: var(--black-text);
+  font-size: 24px;
+  pointer-events: none;
+  user-select: none;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+/* Stack color choices beside the canvas and outline the selected color. */
+.palette {
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  cursor: pointer;
+}
+
+.palette svg.is-selected circle {
+  stroke: var(--black-text);
+  stroke-width: 2px;
+  border-radius: 50%;
+}
+
+/* Footer -------------------------------- */
+/* Align the progress indicator, clear button, and progress caption. */
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer p {
+  margin: 3px;
+}
+
+.progress-controls {
+  align-items: center;
+}
+
+.progress-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+footer .progress-track {
+  fill: var(--soft-linen);
+}
+
+footer .progress-fill {
+  fill: var(--green);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.2s ease-in-out;
+}
+
+footer .progress-fill.is-complete {
+  clip-path: inset(0 0 0 0);
+}
+
+.clear-canvas {
+  padding: 8px 10px;
+  margin-top: 15px;
+  border: 3px solid #b8b6b0;
+  border-radius: 20px;
+  color: var(--black-text);
+  background: var(--soft-linen);
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Style the completion dialog and dim the page behind it. */
+.completion-dialog {
+  width: min(420px, calc(100% - 64px));
+  border: 2px solid var(--black-text);
+  padding: 28px;
+  color: var(--black-text);
+  background: var(--gallery-white);
+  text-align: center;
+}
+
+.completion-dialog::backdrop {
+  background: rgb(26 26 26 / 55%);
+}
+
+.completion-dialog button {
+  padding: 8px 16px;
+  border: 1px solid var(--black-text);
+  color: var(--gallery-white);
+  background: var(--black-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Respect reduced-motion preferences for the progress animation. */
+  footer .progress-fill {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* Adapt header, palette, and canvas layout for smaller screens. */
+@media screen and (max-width:899px) {  
+  header {
+    padding: 10px;
+  }
+
+  header div {
+    display: block;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  header h2 {
+    font-size: 1rem;
+  }
+  
+  .palette {
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .canvas {
+    margin: 10px 0;
+  }
+}
+
+@media screen and (max-width:699px) { 
+  .canvas {
+    transform: scale(.8);
+  }
+
+   #pumpkin {
+    width: 80%;
+    height: 80%;
+  }
+}
